@@ -1,0 +1,8 @@
+[submodule "order-service"]
+	path = order-service
+	url = https://github.com/fillipehmeireles/order-service
+	branch = master
+[submodule "user-service"]
+	path = user-service
+	url = https://github.com/fillipehmeireles/user-service
+	branch = master
