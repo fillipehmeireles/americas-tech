@@ -1,0 +1,5 @@
+# Copy this file to order-service and user-service
+# Then rename those copied files to config.yml
+db:
+  postgres:
+    dsn: host=db user=postgres password=postgres dbname=postgres port=5432 sslmode=disable
