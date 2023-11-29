@@ -1,0 +1,46 @@
+version: '3.6'
+services: 
+  user_service:
+    build:
+      context: ./UserService
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000" 
+    restart: unless-stopped   
+    networks: 
+      - cripto
+    depends_on:
+     - "db"
+  order_service:
+    build:
+      context: ./OrderService
+      dockerfile: Dockerfile
+    ports:
+      - "4001:4001" 
+    restart: unless-stopped   
+    networks: 
+      - cripto
+    depends_on:
+     - "db"
+     - "user_service"
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    user: "postgres"
+    ports:
+      - "5432:5432"
+    networks:
+      - cripto
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d postgres -U postgres"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
+
+networks:
+  cripto:
+    driver: bridge
